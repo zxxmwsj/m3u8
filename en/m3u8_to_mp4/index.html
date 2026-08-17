@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert M3U8 to MP4 Online - M3U8 Player</title>
+    <meta name="description"
+          content="M3U8 to MP4 Online Tool - Supports converting HLS streaming M3U8 links to MP4 video files with one click. Fully implemented on the front end, no installation or upload required. It's secure, fast, and ideal for downloading and converting M3U8 short videos to MP4.">
+    <meta name="keywords"
+          content="m3u8 to mp4, m3u8 to mp4 conversion, hls to mp4, online m3u8 to mp4 converter, video format conversion, pure front-end video conversion, m3u8 download, mp4 download, hls download, m3u8 merging, m3u8 converter">
+    <link rel="canonical" href="https://m3u8player.org/en/m3u8_to_mp4/">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="Convert M3U8 to MP4 Online">
+    <meta property="og:description"
+          content="M3U8 to MP4 Online Tool - Supports converting HLS streaming M3U8 links to MP4 video files with one click. Fully implemented on the front end, no installation or upload required. It's secure, fast, and ideal for downloading and converting M3U8 short videos to MP4">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://m3u8player.org/en/m3u8_to_mp4/">
+    <meta property="og:image" content="https://m3u8player.org/images/logo.png">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="icon" href="/images/logo.ico" type="image/x-icon"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f7fafd;
+            font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 16px rgba(14, 144, 210, 0.08);
+            padding: 40px 40px 32px 40px;
+            min-height: 500px;
+        }
+
+        h1 {
+            color: #0e90d2;
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .desc {
+            color: #666;
+            font-size: 15px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .form-inline {
+            display: flex;
+            gap: 0;
+            margin-bottom: 18px;
+        }
+
+        .form-inline input[type="text"] {
+            flex: 1;
+            height: 42px;
+            border: 1px solid #0e90d2;
+            border-radius: 6px 0 0 6px;
+            padding-left: 12px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-inline button {
+            height: 42px;
+            border: none;
+            background: #0e90d2;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 0 6px 6px 0;
+            padding: 0 24px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .form-inline button:hover {
+            background: #0973a8;
+        }
+
+        #status {
+            margin-top: 18px;
+            color: #0e90d2;
+            min-height: 24px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .footer {
+            margin-top: 32px;
+            text-align: center;
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                max-width: 100%;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                padding: 12px 2vw 12px 2vw;
+                min-height: 400px;
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .desc {
+                font-size: 13px;
+                margin-bottom: 48px;
+            }
+
+            .form-inline {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .form-inline input[type="text"] {
+                border-radius: 6px 6px 0 0;
+                font-size: 16px;
+                height: 48px;
+            }
+
+            .form-inline button {
+                border-radius: 0 0 6px 6px;
+                width: 100%;
+                font-size: 16px;
+                height: 48px;
+                padding: 0;
+            }
+
+            #status {
+                font-size: 13px;
+                min-height: 20px;
+            }
+
+            .footer {
+                margin-top: 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.9.5/dist/ffmpeg.min.js"></script>
+
+    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+    <script>LA.init({id: "3G9QRCtAm0z4ABfe", ck: "3G9QRCtAm0z4ABfe"})</script>
+
+</head>
+<body>
+<div class="container">
+    <h1>M3U8 to MP4</h1>
+    <div class="desc">Enter the m3u8 video link and convert it to an MP4 file with one click on the frontend.<br>(Only
+        supports m3u8 links with CORS enabled, suitable for short videos)
+    </div>
+    <form class="form-inline" autocomplete="off">
+        <input type="text" name="url" placeholder="Please enter the m3u8 link"
+               value="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">
+        <button type="submit">Start Conversion</button>
+    </form>
+    <div id="status"></div>
+    <div id="steps-panel"
+         style="margin-top:28px;background:#f2f8fc;border-radius:8px;padding:20px 18px 16px 18px;box-shadow:0 1px 6px rgba(14,144,210,0.06);color:#333;font-size:15px;">
+        <strong style="color:#0e90d2;font-size:16px;">Conversion Steps</strong>
+        <ol style="margin:14px 0 0 18px;padding:0;font-size:15px;">
+            <li>Enter the m3u8 video link and click "Start Conversion"</li>
+            <li>The tool will automatically download the m3u8 file and parse the TS segments</li>
+            <li>Download all TS segments sequentially (CORS must be enabled)</li>
+            <li>Join the TS segments in the browser and convert them into an MP4 file</li>
+            <li>Once the conversion is complete, the MP4 file will be automatically downloaded to your local machine
+            </li>
+        </ol>
+        <div style="color:#888;font-size:13px;margin-top:10px;">Note: Suitable only for short videos, and the m3u8/TS
+            must allow cross-origin access.
+        </div>
+    </div>
+</div>
+<div class="footer">
+    © 2024 <a href="https://m3u8player.org/en/" target="_blank" rel="noopener noreferrer"
+              style="color:#0e90d2;text-decoration:none;">m3u8 player</a> | For learning and sharing purposes only, commercial use is prohibited.
+</div>
+<script>
+    const {createFFmpeg, fetchFile} = FFmpeg;
+    const ffmpeg = createFFmpeg({log: true});
+    const statusDiv = document.getElementById('status');
+    document.querySelector('form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const url = this.url.value.trim();
+        if (!url) {
+            statusDiv.textContent = 'Please enter the m3u8 link.';
+            return;
+        }
+        statusDiv.textContent = 'Converting, please wait... (around 1 minute)';
+    });
+</script>
+</body>
+</html>

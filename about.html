@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-cn">
+
+<head>
+    <title>关于我们 - M3U8在线播放器 | 专业的多语言流媒体播放解决方案</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description"
+          content="M3U8在线播放器是一款专业的流媒体播放解决方案，支持多语言界面，提供HLS/M3U8格式视频的在线播放服务。采用先进的HTML5技术，支持跨平台播放，为全球用户提供优质的视频播放体验。" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=5.0,minimum-scale=1.0,user-scalable=yes" />
+
+
+    <!-- Google -->
+    <meta itemprop="name" content="M3U8在线播放器" />
+    <meta itemprop="description" content="专业的多语言M3U8在线播放器" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="M3U8在线播放器" />
+    <meta name="twitter:description" content="专业的多语言M3U8在线播放器" />
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #050505;
+            background: #f0f2f5;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header Navigation - Facebook Style */
+        .fb-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            height: 56px;
+            background: #ffffff;
+            border-bottom: 1px solid #dadde1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+        }
+
+        .fb-header-inner {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .fb-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 8px;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .fb-logo:hover {
+            background: #f0f2f5;
+        }
+
+        .fb-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .fb-logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1877f2;
+        }
+
+        .fb-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #65676b;
+        }
+
+        .fb-breadcrumb a {
+            color: #1877f2;
+            text-decoration: none;
+            transition: text-decoration 0.2s;
+        }
+
+        .fb-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Container */
+        .fb-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 16px 40px;
+        }
+
+        /* Hero Section */
+        .fb-hero {
+            background: linear-gradient(135deg, #1877f2 0%, #4267B2 100%);
+            border-radius: 12px;
+            padding: 48px 32px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .fb-hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .fb-hero-desc {
+            font-size: 17px;
+            line-height: 1.5;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Card Style */
+        .fb-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .fb-card h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #050505;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fb-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #050505;
+            margin: 20px 0 12px;
+        }
+
+        .fb-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #050505;
+            margin-bottom: 12px;
+        }
+
+        /* Feature Grid */
+        .fb-feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .fb-feature-item {
+            background: #f0f2f5;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .fb-feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .fb-feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .fb-feature-item h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #050505;
+            margin-bottom: 8px;
+        }
+
+        .fb-feature-item p {
+            font-size: 14px;
+            color: #65676b;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Tech List */
+        .fb-tech-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .fb-tech-list li {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid #e4e6eb;
+        }
+
+        .fb-tech-list li:last-child {
+            border-bottom: none;
+        }
+
+        .fb-tech-list li::before {
+            content: "✓";
+            color: #1877f2;
+            font-size: 20px;
+            font-weight: 700;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .fb-tech-list li strong {
+            color: #050505;
+            font-weight: 600;
+        }
+
+        /* Language Cards */
+        .fb-lang-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .fb-lang-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            border: 2px solid #e4e6eb;
+            transition: all 0.2s;
+        }
+
+        .fb-lang-card:hover {
+            border-color: #1877f2;
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.2);
+        }
+
+        .fb-lang-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .fb-lang-card h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #050505;
+            margin-bottom: 8px;
+        }
+
+        .fb-lang-card p {
+            font-size: 14px;
+            color: #65676b;
+            margin: 0;
+        }
+
+        /* Contact Section */
+        .fb-contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .fb-contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #1877f2;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .fb-contact-btn:hover {
+            background: #166fe5;
+            color: #ffffff;
+        }
+
+        .fb-contact-info {
+            background: #f0f2f5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .fb-contact-info p {
+            margin: 8px 0;
+            font-size: 15px;
+            color: #050505;
+        }
+
+        .fb-contact-info strong {
+            color: #1877f2;
+        }
+
+        /* Quote */
+        .fb-quote {
+            text-align: center;
+            padding: 32px 24px;
+            margin-top: 20px;
+            background: #f0f2f5;
+            border-radius: 12px;
+        }
+
+        .fb-quote p {
+            font-size: 18px;
+            font-style: italic;
+            color: #050505;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .fb-quote-author {
+            font-size: 14px;
+            color: #65676b;
+            margin-top: 12px;
+            font-style: normal;
+        }
+
+        /* Footer */
+        .fb-footer {
+            background: #ffffff;
+            border-top: 1px solid #dadde1;
+            padding: 24px 16px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .fb-footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            font-size: 13px;
+            color: #65676b;
+        }
+
+        .fb-footer a {
+            color: #1877f2;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .fb-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Share Section */
+        #share {
+            margin: 32px auto;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .fb-header {
+                height: 48px;
+                padding: 0 12px;
+            }
+
+            .fb-logo-text {
+                font-size: 16px;
+            }
+
+            .fb-breadcrumb {
+                display: none;
+            }
+
+            .fb-hero {
+                padding: 32px 20px;
+            }
+
+            .fb-hero h1 {
+                font-size: 24px;
+            }
+
+            .fb-hero-desc {
+                font-size: 15px;
+            }
+
+            .fb-card {
+                padding: 20px 16px;
+            }
+
+            .fb-card h2 {
+                font-size: 20px;
+            }
+
+            .fb-feature-grid,
+            .fb-lang-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fb-contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fb-container {
+                padding: 16px 12px;
+            }
+
+            .fb-hero h1 {
+                font-size: 20px;
+            }
+
+            .fb-card h2 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="fb-header">
+    <div class="fb-header-inner">
+        <a class="fb-logo" href="https://m3u8player.org/">
+            <img src="/images/logo.png" alt="M3U8在线播放器" title="M3U8在线播放器"/>
+            <span class="fb-logo-text">M3U8在线播放器</span>
+        </a>
+        <div class="fb-breadcrumb">
+            <a href="/">首页</a>
+            <span>/</span>
+            <span>关于我们</span>
+        </div>
+    </div>
+</header>
+
+<!-- Main Container -->
+<div class="fb-container">
+
+    <!-- Hero Section -->
+    <div class="fb-hero">
+        <h1>关于 M3U8在线播放器</h1>
+        <p class="fb-hero-desc">
+            专业的流媒体播放解决方案，致力于为全球用户提供高质量、低延迟的视频播放体验。采用先进的HTML5技术和HLS协议，打造功能强大、易于使用的在线播放平台。
+        </p>
+    </div>
+
+    <!-- Core Features -->
+    <div class="fb-card">
+        <h2>✨ 核心功能特性</h2>
+        <div class="fb-feature-grid">
+            <div class="fb-feature-item">
+                <div class="fb-feature-icon">🎬</div>
+                <h4>多格式支持</h4>
+                <p>全面支持M3U8、HLS格式视频流播放，兼容各种主流视频编码格式，确保最佳的播放兼容性。</p>
+            </div>
+            <div class="fb-feature-item">
+                <div class="fb-feature-icon">🌐</div>
+                <h4>跨平台播放</h4>
+                <p>基于HTML5技术开发，支持Windows、Mac、Linux、iOS、Android等所有主流操作系统和浏览器。</p>
+            </div>
+            <div class="fb-feature-item">
+                <div class="fb-feature-icon">⚡</div>
+                <h4>高性能播放</h4>
+                <p>采用先进的流媒体技术，支持自适应码率播放，根据网络状况自动调整视频质量，确保流畅播放。</p>
+            </div>
+            <div class="fb-feature-item">
+                <div class="fb-feature-icon">🔧</div>
+                <h4>即开即用</h4>
+                <p>无需下载安装任何软件，直接在浏览器中打开即可使用，提供便捷的在线播放体验。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology -->
+    <div class="fb-card">
+        <h2>🔬 技术原理</h2>
+        <p>
+            M3U8在线播放器基于HTTP Live Streaming（HLS）协议构建，这是一种由Apple公司开发的流媒体传输协议。我们的播放器采用以下核心技术：
+        </p>
+
+        <h3>核心技术架构</h3>
+        <ul class="fb-tech-list">
+            <li><strong>HLS协议支持：</strong>完整支持HLS 1.0-3.0协议，包括主播放列表、媒体播放列表和媒体片段</li>
+            <li><strong>自适应码率：</strong>根据网络带宽自动选择最佳视频质量，确保播放流畅性</li>
+            <li><strong>HTML5 Video API：</strong>利用现代浏览器的原生视频播放能力，提供最佳性能</li>
+            <li><strong>Media Source Extensions：</strong>支持动态加载和播放视频片段，实现真正的流媒体播放</li>
+            <li><strong>Web Workers：</strong>利用后台线程进行视频解码和处理，提升播放性能</li>
+        </ul>
+
+        <h3>播放器工作流程</h3>
+        <ul class="fb-tech-list">
+            <li><strong>解析M3U8文件：</strong>播放器首先解析M3U8播放列表文件，获取视频片段信息</li>
+            <li><strong>下载媒体片段：</strong>按照播放列表顺序下载视频片段文件</li>
+            <li><strong>解码播放：</strong>使用HTML5 Video API解码并播放视频片段</li>
+            <li><strong>缓冲管理：</strong>智能缓冲机制确保播放流畅性</li>
+            <li><strong>质量自适应：</strong>根据网络状况动态调整视频质量</li>
+        </ul>
+    </div>
+
+    <!-- Multi-language Support -->
+    <div class="fb-card">
+        <h2>🌍 多语言支持</h2>
+        <p>我们致力于为全球用户提供本地化的播放体验。目前支持以下语言版本：</p>
+        <div class="fb-lang-grid">
+            <a href="/" class="fb-lang-card">
+                <div class="fb-lang-icon">🇨🇳</div>
+                <h4>中文版</h4>
+                <p>完整的中文界面，专为中国用户优化</p>
+            </a>
+            <a href="/en/" class="fb-lang-card">
+                <div class="fb-lang-icon">🇺🇸</div>
+                <h4>English</h4>
+                <p>Professional English interface for global users</p>
+            </a>
+            <a href="/pt/" class="fb-lang-card">
+                <div class="fb-lang-icon">🇧🇷</div>
+                <h4>Português</h4>
+                <p>Interface em português para usuários brasileiros</p>
+            </a>
+            <a href="/ja/" class="fb-lang-card">
+                <div class="fb-lang-icon">🇯🇵</div>
+                <h4>日本語</h4>
+                <p>日本語インターフェースで日本ユーザー向けに最適化</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Application Scenarios -->
+    <div class="fb-card">
+        <h2>📺 应用场景</h2>
+
+        <h3>直播流媒体</h3>
+        <p>
+            支持各种直播平台的M3U8流媒体播放，包括体育赛事、新闻直播、娱乐节目等。实时转码和分发确保低延迟播放体验。
+        </p>
+
+        <h3>点播视频</h3>
+        <p>
+            适用于在线教育、企业培训、娱乐视频等点播场景。支持视频暂停、快进、快退等完整播放控制功能。
+        </p>
+
+        <h3>移动端播放</h3>
+        <p>
+            针对移动设备优化的播放体验，支持触摸控制、手势操作，确保在各种屏幕尺寸下都有良好的播放效果。
+        </p>
+    </div>
+
+    <!-- Performance Advantages -->
+    <div class="fb-card">
+        <h2>🚀 性能优势</h2>
+        <ul class="fb-tech-list">
+            <li><strong>低延迟：</strong>优化的缓冲策略，确保视频播放延迟最小化</li>
+            <li><strong>高兼容性：</strong>支持所有现代浏览器，包括Chrome、Firefox、Safari、Edge等</li>
+            <li><strong>自适应码率：</strong>根据网络状况自动调整视频质量，确保流畅播放</li>
+            <li><strong>跨平台支持：</strong>Windows、Mac、Linux、iOS、Android全平台支持</li>
+            <li><strong>无插件要求：</strong>基于HTML5技术，无需安装任何插件或软件</li>
+        </ul>
+    </div>
+
+    <!-- Contact Us -->
+    <div class="fb-card">
+        <h2>📧 联系我们</h2>
+        <p>
+            我们重视每一位用户的反馈和建议。如果您在使用过程中遇到任何问题，或有功能改进建议，欢迎通过以下方式联系我们：
+        </p>
+
+        <div class="fb-contact-grid">
+            <a href="mailto:kefu888@gmail.com" class="fb-contact-btn">
+                📧 客服邮箱
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61578419190409" target="_blank" class="fb-contact-btn">
+                📘 Facebook
+            </a>
+            <a href="https://www.linkedin.com/company/m3u8player" target="_blank" class="fb-contact-btn">
+                💼 LinkedIn
+            </a>
+            <a href="https://github.com/geeeeeeeek/m3u8player" target="_blank" class="fb-contact-btn">
+                💻 GitHub
+            </a>
+        </div>
+
+        <div class="fb-contact-info">
+            <p><strong>客服邮箱：</strong>kefu888@gmail.com</p>
+            <p><strong>技术支持：</strong>support@m3u8player.org</p>
+            <p><strong>商务合作：</strong>business@m3u8player.org</p>
+        </div>
+    </div>
+
+    <!-- Vision -->
+    <div class="fb-card">
+        <h2>🎯 发展愿景</h2>
+        <p>
+            我们致力于成为全球领先的在线视频播放解决方案提供商。未来将继续投入技术研发，为用户提供更高质量、更便捷的视频播放体验。我们相信，通过持续的技术创新和用户反馈，M3U8在线播放器将成为流媒体播放领域的标杆产品。
+        </p>
+    </div>
+
+    <!-- Quote -->
+    <div class="fb-quote">
+        <p>"让视频播放变得简单而强大"</p>
+        <p class="fb-quote-author">—— M3U8在线播放器团队</p>
+    </div>
+
+    <!-- Share Section -->
+    <div id="share"></div>
+
+</div>
+
+<!-- Footer -->
+<footer class="fb-footer">
+    <div class="fb-footer-inner">
+        <p>
+            Copyright ©2024
+            <a href="https://m3u8player.org/">M3U8在线播放器</a>
+            |
+            <a href="/privacy.html">隐私政策</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+    let hostname = window.location.hostname
+</script>
+
+<script>
+    var $config = {
+        title: '关于M3U8在线播放器',
+        description: '专业的多语言M3U8在线播放器',
+        sites: ['weibo', 'qzone', 'douban', 'facebook', 'twitter', 'linkedin'],
+        wechatQrcodeTitle: "微信扫一扫：分享",
+        wechatQrcodeHelper: '<p>微信里点"发现"，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
+    };
+
+    if(typeof socialShare === 'function') {
+        socialShare('#share', $config);
+    }
+</script>
+
+</body>
+
+</html>

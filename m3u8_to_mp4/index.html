@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M3U8转MP4在线工具 - 视频转换器</title>
+    <meta name="description" content="M3U8转MP4在线工具，支持HLS流媒体m3u8链接一键转换为MP4视频文件，纯前端实现，无需安装、无需上传，安全快速，适合短视频m3u8转mp4下载。">
+    <meta name="keywords" content="m3u8转mp4, m3u8 to mp4, hls转mp4, 在线m3u8转mp4, 视频格式转换, 纯前端视频转换, m3u8下载, mp4下载, hls下载, m3u8合并, m3u8转换器">
+    <link rel="canonical" href="https://m3u8player.org/m3u8_to_mp4/">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="M3U8转MP4在线工具 - 视频转换器">
+    <meta property="og:description" content="M3U8转MP4在线工具，支持HLS流媒体m3u8链接一键转换为MP4视频文件，纯前端实现，无需安装、无需上传，安全快速，适合短视频m3u8转mp4下载。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://m3u8player.org/m3u8_to_mp4/">
+    <meta property="og:image" content="https://m3u8player.org/images/logo.png">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="icon" href="/images/logo.ico" type="image/x-icon"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f7fafd;
+            font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 60px auto 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 16px rgba(14,144,210,0.08);
+            padding: 40px 40px 32px 40px;
+            min-height: 500px;
+        }
+        h1 {
+            color: #0e90d2;
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .desc {
+            color: #666;
+            font-size: 15px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .form-inline {
+            display: flex;
+            gap: 0;
+            margin-bottom: 18px;
+        }
+        .form-inline input[type="text"] {
+            flex: 1;
+            height: 42px;
+            border: 1px solid #0e90d2;
+            border-radius: 6px 0 0 6px;
+            padding-left: 12px;
+            font-size: 15px;
+            outline: none;
+        }
+        .form-inline button {
+            height: 42px;
+            border: none;
+            background: #0e90d2;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 0 6px 6px 0;
+            padding: 0 24px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .form-inline button:hover {
+            background: #0973a8;
+        }
+        #status {
+            margin-top: 18px;
+            color: #0e90d2;
+            min-height: 24px;
+            text-align: center;
+            font-size: 15px;
+        }
+        .footer {
+            margin-top: 32px;
+            text-align: center;
+            color: #aaa;
+            font-size: 13px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                max-width: 100%;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                padding: 12px 2vw 12px 2vw;
+                min-height: 400px;
+            }
+            h1 {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+            .desc {
+                font-size: 13px;
+                margin-bottom: 48px;
+            }
+            .form-inline {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .form-inline input[type="text"] {
+                border-radius: 6px 6px 0 0;
+                font-size: 16px;
+                height: 48px;
+            }
+            .form-inline button {
+                border-radius: 0 0 6px 6px;
+                width: 100%;
+                font-size: 16px;
+                height: 48px;
+                padding: 0;
+            }
+            #status {
+                font-size: 13px;
+                min-height: 20px;
+            }
+            .footer {
+                margin-top: 16px;
+                font-size: 12px;
+            }
+        }
+
+        :root {
+            --page: #07111f;
+            --surface: rgba(18, 31, 52, 0.92);
+            --line: rgba(150, 181, 222, 0.18);
+            --ink: #e6f0ff;
+            --muted: #91a4c0;
+            --accent: #42d8ff;
+            --accent-strong: #1494e8;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 12% 0%, rgba(26, 126, 191, 0.24), transparent 32rem),
+                radial-gradient(circle at 92% 14%, rgba(66, 216, 255, 0.11), transparent 24rem),
+                var(--page);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 920px;
+            height: 68px;
+            margin: 0 auto;
+            padding: 0 24px;
+            box-sizing: border-box;
+        }
+
+        .tool-brand, .tool-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .tool-brand img { width: 34px; height: 34px; border-radius: 10px; }
+        .tool-back { color: var(--muted); font-size: 14px; font-weight: 600; }
+        .tool-back:hover { color: var(--accent); }
+
+        .container {
+            position: relative;
+            max-width: 920px;
+            min-height: 0;
+            margin: 26px auto 0;
+            padding: 46px;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: var(--surface);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+            backdrop-filter: blur(18px);
+        }
+
+        .tool-kicker {
+            margin-bottom: 14px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0 0 14px;
+            color: #f5f9ff;
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.1;
+            letter-spacing: -0.05em;
+            text-align: left;
+        }
+
+        .desc {
+            max-width: 670px;
+            margin: 0 0 30px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            color: #b8cae2;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .form-inline { gap: 10px; margin-bottom: 14px; }
+        .form-inline input[type="text"], .form-inline input[type="url"] {
+            flex: 1;
+            min-width: 0;
+            height: 52px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 0 16px;
+            color: var(--ink);
+            background: rgba(4, 12, 24, 0.7);
+            font-size: 15px;
+        }
+
+        .form-inline input[type="text"]::placeholder, .form-inline input[type="url"]::placeholder { color: #667c9b; }
+        .form-inline input[type="text"]:focus, .form-inline input[type="url"]:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(66, 216, 255, 0.12); }
+        .form-inline button {
+            height: 52px;
+            border-radius: 12px;
+            padding: 0 26px;
+            color: #04111f;
+            background: linear-gradient(135deg, #79edff, #2ab9f4);
+            box-shadow: 0 10px 26px rgba(42, 185, 244, 0.22);
+            font-size: 15px;
+            font-weight: 800;
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        .form-inline button:hover { background: linear-gradient(135deg, #9af2ff, #42c7f7); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(42, 185, 244, 0.3); }
+        .form-inline button:focus-visible { outline: 3px solid rgba(121, 237, 255, 0.55); outline-offset: 3px; }
+        #status { min-height: 24px; margin: 12px 0 22px; color: var(--accent); text-align: left; }
+        .url-help { margin: -4px 0 0; color: #7186a3; font-size: 13px; line-height: 1.6; }
+        #steps-panel { margin-top: 0 !important; padding: 22px !important; border: 1px solid var(--line); border-radius: 16px !important; background: rgba(5, 15, 28, 0.55) !important; box-shadow: none !important; color: #b1c0d5 !important; }
+        #steps-panel strong { color: #f4f8ff !important; }
+        #steps-panel ol { color: var(--muted); line-height: 1.8; }
+        #steps-panel li::marker { color: var(--accent); font-weight: 800; }
+        #steps-panel div { color: #8398b4 !important; }
+        .footer { max-width: 920px; margin: 24px auto; padding: 0 24px 24px; color: #7186a3; }
+        .footer a { color: var(--accent) !important; }
+
+        @media (max-width: 600px) {
+            .tool-header { height: 60px; padding: 0 16px; }
+            .tool-brand { font-size: 14px; }
+            .tool-brand img { width: 30px; height: 30px; }
+            .tool-back { font-size: 13px; }
+            .container { margin: 10px 14px 0; padding: 28px 18px; border-radius: 18px; }
+            h1 { font-size: 34px; }
+            .desc { font-size: 15px; margin-bottom: 26px; }
+            .form-inline { gap: 10px; }
+            .form-inline input[type="text"], .form-inline input[type="url"], .form-inline button { border-radius: 12px; height: 50px; }
+            .footer { padding: 0 18px 18px; }
+        }
+    </style>
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.9.5/dist/ffmpeg.min.js"></script>
+
+    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+    <script>LA.init({id: "3G9QRCtAm0z4ABfe", ck: "3G9QRCtAm0z4ABfe"})</script>
+
+</head>
+<body>
+    <header class="tool-header">
+        <a class="tool-brand" href="/" aria-label="返回 M3U8 播放器首页">
+            <img src="/images/logo.png" width="34" height="34" alt="" />
+            <span>M3U8 Player</span>
+        </a>
+        <a class="tool-back" href="/">返回播放器 <span aria-hidden="true">↗</span></a>
+    </header>
+    <div class="container">
+        <div class="tool-kicker">BROWSER VIDEO TOOL</div>
+        <h1>M3U8 转 MP4</h1>
+        <div class="desc">输入 m3u8 视频链接，纯前端一键转换为 MP4 文件。<br>（仅支持 CORS 允许的 m3u8，适合短视频）</div>
+        <label class="form-label" for="m3u8-url">M3U8 视频地址</label>
+        <form class="form-inline" autocomplete="off">
+            <input id="m3u8-url" type="url" name="url" placeholder="https://example.com/video/index.m3u8" value="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" aria-describedby="url-help">
+            <button type="submit">开始转换</button>
+        </form>
+        <div id="url-help" class="url-help">视频不会上传到服务器，转换过程在浏览器本地进行。</div>
+        <div id="status" role="status" aria-live="polite"></div>
+        <div id="steps-panel" style="margin-top:28px;background:#f2f8fc;border-radius:8px;padding:20px 18px 16px 18px;box-shadow:0 1px 6px rgba(14,144,210,0.06);color:#333;font-size:15px;">
+            <strong style="color:#0e90d2;font-size:16px;">转换步骤说明</strong>
+            <ol style="margin:14px 0 0 18px;padding:0;font-size:15px;">
+                <li>输入 m3u8 视频链接，点击“开始转换”</li>
+                <li>工具自动下载 m3u8 文件并解析 ts 分片</li>
+                <li>依次下载所有 ts 分片（需支持 CORS）</li>
+                <li>在浏览器内拼接分片并转为 MP4 文件</li>
+                <li>转换完成后自动下载 MP4 文件到本地</li>
+            </ol>
+            <div style="color:#888;font-size:13px;margin-top:10px;">注：仅适合短视频，且 m3u8/ts 需允许跨域访问。</div>
+        </div>
+    </div>
+    <div class="footer">
+        © 2026 | 仅供学习交流，禁止商用
+    </div>
+    <script>
+    const { createFFmpeg, fetchFile } = FFmpeg;
+    const ffmpeg = createFFmpeg({ log: true });
+    const statusDiv = document.getElementById('status');
+    document.querySelector('form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const url = this.url.value.trim();
+        if (!url) {
+            statusDiv.textContent = '请输入 m3u8 链接';
+            return;
+        }
+        statusDiv.textContent = '正在转换，请稍候...(1分钟左右)';
+    });
+    </script>
+</body>
+</html>

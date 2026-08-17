@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <title>播放 M3U8 格式的视频 - m3u8播放器</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description"
+          content="播放M3U8格式视频需使用支持HLS协议的播放器，如VLC、QuickTime或在线HLS播放器。M3U8是HTTP Live Streaming的核心格式，通过分段传输和自适应码率技术，确保视频在不同网络环境下流畅播放，广泛应用于直播和点播场景，兼容多设备和平台。" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=5.0,minimum-scale=1.0,user-scalable=yes" />
+
+
+    <!-- Google -->
+    <meta itemprop="name" content="m3u8播放器" />
+    <meta itemprop="description" content="m3u8播放器" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="m3u8播放器" />
+    <meta name="twitter:description" content="m3u8播放器" />
+
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          type="text/css"/>
+
+
+
+
+
+    <style>
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            height: 100%;
+            font-size: 14px;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-overflow-scrolling: touch;
+            overflow-scrolling: touch;
+            font-family: 'Microsoft Yahei', '微软雅黑', '宋体', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
+        .hd-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1071;
+            width: 100%;
+            height: 64px;
+            background-color: #7952b3;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            padding-right: 1rem;
+            padding-left: 1rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .hd-nav .navbar-icon {
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+        }
+        .hd-nav .navbar-icon .navbar-label {
+            display: inline-block;
+            height: 32px;
+            line-height: 32px;
+            font-weight: bold;
+        }
+
+        .content-wrap{
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .article {
+            padding: 12px;
+        }
+        h1{
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        h2{
+            font-size: 18px;
+        }
+        p{
+            font-size: 14px;
+            margin: 12px 0px;
+        }
+        p img{
+            width: 99%;
+            height: auto;
+        }
+
+        #share {
+            margin: 48px auto 48px;text-align: center;
+        }
+
+        #footer {
+
+            background: #e1e1e1;
+            padding: 25px 0px;
+            font-size: 13px;
+            color: #555;
+            text-align: center;
+            margin-top: 80px;
+        }
+        #footer a{
+            color:#444;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+<header class="hd-nav">
+    <a class="navbar-icon" href="https://m3u8player.org/">
+        <img src="/images/logo.png" width="30" height="30" alt="帮助中心" title="在线帮助中心"/>
+        <span style="font-size: 18px;font-weight: bold;">帮助中心</span>
+    </a>
+</header>
+<div class="content-wrap">
+    <ol class="breadcrumb">
+        <li><a href="/">首页</a></li>
+        <li class="active">播放 M3U8 格式的视频</li>
+    </ol>
+
+    <div class="article">
+        <h1>播放 M3U8 格式的视频</h1>
+
+
+
+        <p>
+        要播放 M3U8 格式的视频，可以按照以下步骤进行操作：
+        <p>
+        1.  使用支持M3U8格式的播放器： 首先确保你有一个支持播放M3U8格式视频的播放器。常见的支持M3U8的播放器包括 VLC 媒体播放器、PotPlayer、MX Player等。你也可以在网页浏览器中使用HLS插件进行播放。
+        <p>
+        2.  获取M3U8链接： 要播放M3U8格式的视频，首先需要获取视频的M3U8链接。这通常是通过视频网站提供的，你可以在视频网站上找到视频的M3U8链接。
+        <p>
+        <img src="./img/2.jpg" alt="m3u8"/>
+        3.  打开M3U8链接： 使用支持M3U8格式的播放器打开获取到的M3U8链接。你可以直接将链接输入到播放器的URL栏中，或者将M3U8文件下载到本地然后通过播放器打开。
+        <p>
+        4.  等待视频加载： 一旦打开M3U8链接，播放器会自动加载视频流，并开始播放视频。如果视频质量较高或者网络连接速度较慢，可能需要等待一段时间以便视频缓冲加载。
+        <p>
+         请注意，由于M3U8是一种索引文件格式，所以实际视频数据可能分散在不同的分段文件中，播放器会自动按顺序加载这些分段文件来实现播放。
+
+
+
+    </div>
+
+    <div id="share"></div>
+
+</div>
+
+
+
+
+<div id="footer">
+    <div class="footer-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                    <span>
+                        Copyright ©2024
+                        <a href="https://m3u8player.org/">
+                            m3u8在线播放器
+                        </a>
+                    </span>
+                |
+                <span>
+                        <a href="https://beian.miit.gov.cn/" target="_blank">
+                            京ICP备13059822号
+                        </a>
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    let hostname = window.location.hostname
+
+</script>
+</body>
+
+</html>

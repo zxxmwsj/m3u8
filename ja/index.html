@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <title>M3U8オンライン再生プレーヤー | 高速・無料・簡単に動画再生</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords"
+          content="M3U8オンライン再生, HLS再生, M3U8ファイルを開く, M3U8ライブストリーミングソース, M3U8オンラインテスト">
+    <meta name="description"
+          content="M3U8オンライン再生プレーヤーでM3U8動画ストリームを簡単に再生できます。ダウンロードやインストールは不要です。すべてのデバイスとプラットフォームに対応 – すぐにスムーズなストリーミングをお楽しみください！">
+
+    <link rel="canonical" href="https://m3u8player.org/ja/">
+    <link rel="alternate" hreflang="zh" href="https://m3u8player.org/">
+    <link rel="alternate" hreflang="en" href="https://m3u8player.org/en/">
+    <link rel="alternate" hreflang="pt" href="https://m3u8player.org/pt/">
+    <link rel="alternate" hreflang="ja" href="https://m3u8player.org/ja/">
+    <link rel="alternate" hreflang="x-default" href="https://m3u8player.org/">
+
+    <link rel="icon" type="image/png" href="./images/logo.png">
+    <link rel="icon" href="./images/logo.ico" type="image/x-icon"/>
+
+    <script src="/js/jquery.min.js"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="/share-sdk/css/share.min.css">
+    <script src="/share-sdk/js/social-share.min.js"></script>
+
+    <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v5.1.0/tcplayer.min.css" rel="stylesheet"/>
+    <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v5.1.0/tcplayer.v5.1.0.min.js"></script>
+
+
+
+    <style>
+
+        @media screen and (max-width: 640px) {
+            #player-container-id {
+                height: 200px !important;
+            }
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .hd {
+            width: 100%;
+            height: 50px;
+            background-color: #0e90d2;
+        }
+
+        .hd .link-list {
+            padding: 0 16px;
+            height: 50px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            align-items: center;
+            align-content: center;
+        }
+
+        .hd .link-list a {
+            font-size: 16px;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .hd .link-list a:hover {
+            font-weight: bold;
+        }
+
+        .main {
+            padding: 16px 16px;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .main h1 {
+            text-align: center;
+            font-size: 30px;
+            color: #0e90d2;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .main .form {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 24px;
+        }
+
+        .main .form input {
+            flex: 1;
+            height: 40px;
+            border-top: 1px solid #0e90d2;
+            border-left: 1px solid #0e90d2;
+            border-bottom: 1px solid #0e90d2;
+            border-right: 0px;
+            padding-left: 10px;
+        }
+
+        .main .form input:focus {
+            outline: #0e90d2;
+        }
+
+        .main .form img {
+            margin-left: -4px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .main #share {
+            text-align: center;
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .main p {
+            font-size: 15px;
+        }
+
+        .main .alert a {
+            color: #501445;
+            text-decoration: underline;
+        }
+
+        .main h2 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+<header class="hd">
+    <div class="link-list">
+        <a href="/ja">ホーム</a>
+        <a href="/ja/about.html">について</a>
+        
+        <!--  语言切换区域-->
+        <div style="margin-left: auto; position: relative;">
+            <select id="language-selector" style="padding: 5px 10px; border: 1px solid #fff; background: transparent; color: #fff; border-radius: 3px; cursor: pointer;">
+                <option value="zh" style="color:#000;">中文</option>
+                <option value="en" style="color:#000;">English</option>
+                <option value="pt" style="color:#000;">Português</option>
+                <option value="ja" selected style="color:#000;">日本語</option>
+            </select>
+        </div>
+    </div>
+</header>
+
+<div class="main">
+
+    <h1>M3U8プレーヤー</h1>
+    <div class="form">
+        <input type="text" id="url" value="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+               placeholder="M3U8再生アドレスを入力してください" autocomplete="off">
+        <img src="./images/ic-play.png" onclick="play()" alt="再生"/>
+    </div>
+    <video id="player-container-id" preload="auto" playsinline webkit-playsinline
+           style="width: 100%;min-height:200px; background:#000;">
+    </video>
+    <div id="share"></div>
+
+
+    <div class="alert alert-success" role="alert">
+        <p>
+            サイト埋め込み：
+        </p>
+        <p>
+        <pre>&lt;iframe src="https://m3u8player.org/player.html?url=https://****index.m3u8"&gt;&lt;/iframe&gt;</pre>
+        </p>
+        <p>
+            M3U8Playerは、リアルタイムHTTPストリーミングクライアントを実装するChromeブラウザ拡張機能です。
+            .m3u8形式のHTTP Live Streaming（HLS）ストリームを再生できます。HTML5に依存して
+            ビデオとメディアソースを再生用に拡張します。その動作原理は、MPEG-2トランスポートストリームと
+            AAC/MP3ストリームをISO BMFF（MP4）セグメントに変換することです。ブラウザにWeb Workerがある場合、
+            非同期トランスコーディングに使用できます。HLS + FMP4もサポートしています。
+        </p>
+        <h2>M3U8ファイルとは何ですか？</h2>
+        <p>
+            <a href="https://en.wikipedia.org/wiki/M3U#M3U8">M3U8</a>拡張子は、UTF-8でエンコードされた
+            オーディオプレイリストファイルです。これらは、オーディオプレーヤーとビデオプレーヤーの両方で
+            メディアファイルの場所を記述するために使用できるプレーンテキストファイルです。
+        </p>
+        <p>
+            例えば、M3U8ファイルは、インターネットラジオのオンラインファイルへの参照を提供できます。別の
+            ファイルは、個人の音楽やビデオシリーズのプレイリストを作成するためにコンピュータ上で作成できます。
+        </p>
+        <p>
+            いずれの場合も、効果は同じです：ファイルを開いて、プレイリストが指すコンテンツを
+            すぐに再生し始めることができます。同じ音楽を何度も聴くのが好きな場合は、
+            メディアプレーヤーでこれらの特定のトラックを再生するためのショートカットとして
+            M3U8ファイルを作成できます。
+        </p>
+        <p>
+            ファイルは、絶対パス、相対パス、URLを使用して、特定のメディアファイルや
+            メディアファイルのフォルダ全体を指すことができます。ファイル内のその他の情報は、
+            コンテンツを説明するコメントである場合があります。
+        </p>
+        <p>
+            M3U8は、マルチメディアプレイリストファイル形式で、元々はMP3などのオーディオファイル用に
+            設計されました。しかし、ますます多くのソフトウェアがビデオプレイリストにも使用し、
+            M3U8はオンラインオーディオストリーミングソースを指定できます。多くのデバイスと
+            プログラムがM3U8形式をサポートしています。
+        </p>
+        <h2>M3U8ファイルを開く方法は？</h2>
+        <p>
+            ほとんどのテキストエディタは、Windowsのメモ帳を含むM3U8ファイルを編集および読み取りできます。
+            ただし、メモ帳でファイルを開くと、ファイルの参照のみを読み取ることができ、再生することはできません。
+            これは、テキストエディタがプレーヤーやメディアマネージャーとは異なるためです。
+        </p>
+        <p>
+            M3U8ファイルを開いて使用するための良いプログラムを探している場合は、VLC、iTunes、または
+            Songbirdを試すことができます。LinuxでM3U8ファイルを開く別の方法はXMMSを使用することです。
+            一方、CocoModXはMacユーザー（Windowsと互換性のあるいくつかのプログラムに加えて）に推奨されます。
+        </p>
+        <p>
+            <a href="https://m3u8player.org/ja">オンラインM3U8プレーヤー</a>を使用してファイルを
+            素早く開くことができます。ただし、M3U8ファイルがコンピュータやデバイスに保存されている場合、
+            サイトが機能しない可能性があります。これは、ファイルのURLが必要で、参照されるコンテンツが
+            オンラインである必要があるためです。
+        </p>
+
+    </div>
+
+
+    <p>
+    <span>
+        「何かが十分に重要であれば、確率があなたに不利であっても、それでもあなたはそれを行うべきです。」
+        <br/> —— <strong>イーロン・マスク</strong>
+    </span>
+        <br>
+        <br>
+        <br>
+        <span style="font-size: 14px;">
+        リソースはインターネットから提供されています。違反がある場合は、お客様サービスにお問い合わせください！
+        カスタマーサービスメール: kefu888# gmail.com
+    </span>
+        <br>
+        <span style="font-size: 14px;">© 2019 - 2025 </span>
+    </p>
+
+    <!-- 语言链接区域 -->
+    <div style="text-align: center; margin-top: 20px; padding: 15px 0; border-top: 1px solid #eee;">
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            <a href="/" style="color: #0e90d2; text-decoration: none; font-size: 14px;">中文</a>
+            <a href="/en/" style="color: #0e90d2; text-decoration: none; font-size: 14px;">English</a>
+            <a href="/pt/" style="color: #0e90d2; text-decoration: none; font-size: 14px;">Português</a>
+            <a href="/ja/" style="color: #0e90d2; text-decoration: none; font-size: 14px;">日本語</a>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    var $config = {
+        title: 'm3u8 player',
+        description: 'm3u8 player',
+        sites: ['weibo', 'qzone', 'douban', 'facebook', 'twitter', 'linkedin'],
+        wechatQrcodeTitle: "微信扫一扫：分享", // 微信二维码提示文字
+        wechatQrcodeHelper: '<p>微信里点“发现”，扫一下</p><p>二维码便可将本文分享至朋友圈。</p>',
+    };
+
+    socialShare('#share', $config)
+</script>
+
+<script>
+    // 请勿窃取代码
+    
+    // 语言切换功能
+    document.getElementById('language-selector').addEventListener('change', function() {
+        const selectedLanguage = this.value;
+        const currentPath = window.location.pathname;
+        
+        switch(selectedLanguage) {
+            case 'en':
+                window.location.href = '/en' + currentPath.replace(/^\/ja/, '');
+                break;
+            case 'pt':
+                window.location.href = '/pt' + currentPath.replace(/^\/ja/, '');
+                break;
+            case 'ja':
+                window.location.href = '/ja' + currentPath.replace(/^\/ja/, '');
+                break;
+            case 'zh':
+            default:
+                // 移除语言前缀，回到中文版本
+                const pathWithoutLang = currentPath.replace(/^\/ja/, '');
+                window.location.href = pathWithoutLang || '/';
+                break;
+        }
+    });
+
+    // 根据当前URL设置下拉框的选中状态
+    window.addEventListener('load', function() {
+        const currentPath = window.location.pathname;
+        const languageSelector = document.getElementById('language-selector');
+        
+        if (currentPath.startsWith('/en')) {
+            languageSelector.value = 'en';
+        } else if (currentPath.startsWith('/pt')) {
+            languageSelector.value = 'pt';
+        } else if (currentPath.startsWith('/ja')) {
+            languageSelector.value = 'ja';
+        } else {
+            languageSelector.value = 'zh';
+        }
+    });
+</script>
+
+<script>
+
+
+    var player = undefined;
+
+
+    function play() {
+
+        let url = $("#url").val()
+
+        if (player === undefined) {
+            player = TCPlayer('player-container-id', {
+                sources: [{
+                    src: url,
+                }],
+                licenseUrl: 'https://license.vod2.myqcloud.com/license/v2/1251321133_1/v_cube.license',
+            });
+        }
+
+
+        player.pause();
+        console.log(url)
+        player.src(url); // url 播放地址
+    }
+
+</script>
+
+</body>
+
+</html>
