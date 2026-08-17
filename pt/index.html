@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="/share-sdk/css/share.min.css">
     <script src="/share-sdk/js/social-share.min.js"></script>
 
-    <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v5.1.0/tcplayer.min.css" rel="stylesheet"/>
-    <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v5.1.0/tcplayer.v5.1.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+    <script src="../js/hls-player.js"></script>
 
     <style>
 
@@ -319,26 +319,9 @@
 <script>
 
 
-    var player = undefined;
-
-
     function play() {
-
-        let url = $("#url").val()
-
-        if (player === undefined) {
-            player = TCPlayer('player-container-id', {
-                sources: [{
-                    src: url,
-                }],
-                licenseUrl: 'https://xxxxxxxxxxxxxxxxxxxx',
-            });
-        }
-
-
-        player.pause();
-        console.log(url)
-        player.src(url); // url 播放地址
+        const url = $("#url").val().trim();
+        setupHlsPlayer('player-container-id', url);
     }
 
 </script>
